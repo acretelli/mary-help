@@ -1,4 +1,4 @@
-# Frontend - Projeto Labefood
+# Frontend - Projeto MaryHelp
 
 :dash: [Deploy da aplicação](http://mary-help.surge.sh/)
 
