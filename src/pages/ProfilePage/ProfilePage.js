@@ -1,4 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import axios from 'axios';
+import moment from 'moment';
 import { Header } from '../../components/Header/Header';
 import { Footer } from '../../components/Footer/Footer';
 import { UserContext } from '../../components/UserContext';
@@ -11,9 +13,10 @@ import { UserImg, Score, Box, BoxTitle, BoxContent, BoxTopic, IconBtn } from './
 
 import profilePic from '../../images/profile_pic.png';
 import editIcon from '../../images/edit.svg';
+import { SecondaryMenu } from '../../components/SecondaryMenu/SecondaryMenu';
 
 const ProfilePage = () => {
-    // const { user, setUser } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const [ isEditingUser, setIsEditingUser] = useState(false);
     const [ isEditingAddress, setIsEditingAddress] = useState(false);
 
@@ -27,134 +30,84 @@ const ProfilePage = () => {
         setIsEditingAddress(!isEditingAddress)
     }
 
-    const user = {
-        name: "Ana",
-        lastName: "Santana",
-        email: "annasantana@gmail.com",
-        username: "anasantana",
-        password: "123456",
-        dateOfBirth: "04/02/1985",
-        bio: "Oi, eu sou a Ana! Tenho dois filhos e sinto dificuldades em dar conta de tudo. Preciso de ajuda!",
-        photo: profilePic,
-        phone: "01199999-9999",
-        children: true,
-        addressType: "residencial",
-        state: "sp",
-        city: "São Paulo",
-        postalCode: "04100-000",
-        address: "rua das Margaridas",
-        number: "11/201",
-        services: [
-            {
-                "title": "Babá e transporte",
-                "date": "02/09/2020",
-                "description": "Babá e transporte",
-                "price": 50
-            },
-        ],
-        needing: [
-            {
-                "title": "Cuidados domésticos e psicológicos",
-                "date": "02/09/2020",
-                "description": "Cuidados domésticos e psicológicos",
-                "category": "Aconselhamento financeiro",
-            },
-        ],
-        messages: [
-            {
-                "author": "Joana",
-                "message": "Oi, Ana!"
-            },
-            {
-                "author": "Maria",
-                "message": "Oi, Ana!"
-            },
-        ],
-        avaliations: [
-            {
-                "author": "Flávia Silva",
-                "stars": 5,
-                "comment": "A  Ana é uma mulher muito dedicada e  me ajudou muito, somos até amigas! "
-            },
-            {
-                "author": "Paula Maria",
-                "stars": 5,
-                "comment": "Aprendi muito com a ana e ela dirige muito bem."
-            },
-        ],
-        blocks: [
-            {
-                "name": "Paula Torres"
-            }
-        ],
-        score: 0
+    const goToFeedPage = async() => {
+        
+        try {
+            const response = await axios.get("https://maryhelp.herokuapp.com/usuario/5f56e37784a7b7001770e480");
+
+            localStorage.setItem("user", JSON.stringify(response.data.result[0].cadastro._id))
+            setUser(response.data.result[0])
+        }
+        catch(err) {
+            console.log(err.message)
+        }
+
     }
+
+    useEffect(() => {
+        goToFeedPage()
+    }, [])
+    console.log(user)
 
     return (
         <MainContainer>
             <Header/>
-            {user && <Container width="600px" key={user.name}>
+            {user.cadastro && <Container width="600px" key={user.cadastro._id}>
                 <Box>
                     <IconBtn src={editIcon} alt="Ícone para indicar a edição das informações" onClick={handleEditUser} />
                     <BoxTitle>User</BoxTitle>
                     <UserImg src={profilePic} alt={user.name} />
                     {!isEditingUser ? <BoxContent>
-                        <BoxTopic>{user.name} {user.lastName}</BoxTopic>
-                        <BoxTopic>{user.email}</BoxTopic>
-                        <BoxTopic>{user.username}</BoxTopic>
-                        <BoxTopic>{user.dateOfBirth}</BoxTopic>
-                        <BoxTopic>{user.bio}</BoxTopic>
+                        <BoxTopic><strong>Nome: </strong>{user.cadastro.nome} {user.cadastro.sobrenome}</BoxTopic>
+                        <BoxTopic><strong>Usuario: </strong>{user.cadastro.usuario}</BoxTopic>
+                        <BoxTopic><strong>Email:</strong>{user.cadastro.email}</BoxTopic>
+                        <BoxTopic><strong>Data de nascimento:</strong>{moment(user.cadastro.dataNascimento).format("DD/MM/YYYY")}</BoxTopic>
+                        <BoxTopic><strong>Telefone:</strong>{user.cadastro.telefone}</BoxTopic>
+                        <BoxTopic><strong>Filhos:</strong> {user.cadastro.__v}</BoxTopic>
+
                     </BoxContent> : <FormUser />}
-                </Box>
-                <Box>
-                    <IconBtn src={editIcon} alt="Ícone para indicar a edição das informações"  onClick={handleEditAddress} />
-                    <BoxTitle>Informações Complementares</BoxTitle>
-                    {!isEditingAddress ? <BoxContent>
-                        <BoxTopic>{user.phone}</BoxTopic>
-                        <BoxTopic>{user.children}</BoxTopic>
-                        <BoxTopic>{user.addressType}</BoxTopic>
-                        <BoxTopic>{user.state}</BoxTopic>
-                        <BoxTopic>{user.city}</BoxTopic>
-                        <BoxTopic>{user.postalCode}</BoxTopic>
-                        <BoxTopic>{user.address}</BoxTopic>
-                        <BoxTopic>{user.number}</BoxTopic>
-                    </BoxContent> : <FormAddress />}
                 </Box>
                 <Box>
                     <BoxTitle>Avaliações</BoxTitle>
                     
-                    {user.avaliations.map( avaliation => {
+                    {user.avaliacoesFeitas.length > 0 ? user.avaliacoesFeitas.map( avaliation => {
                         return <BoxContent>
                             <BoxTopic>{avaliation.author}</BoxTopic>
                             <BoxTopic>{avaliation.stars}</BoxTopic>
                             <BoxTopic>{avaliation.comment}</BoxTopic>
                         </BoxContent>
-                    })}
+                    }) : <BoxContent><BoxTopic>Você não realizou nenhuma avaliação ainda.</BoxTopic></BoxContent>}
+                    {user.avaliacoesRecebidas.length > 0 ? user.avaliacoesRecebidas.map( avaliation => {
+                        return <BoxContent>
+                            <BoxTopic>{avaliation.author}</BoxTopic>
+                            <BoxTopic>{avaliation.stars}</BoxTopic>
+                            <BoxTopic>{avaliation.comment}</BoxTopic>
+                        </BoxContent>
+                    }) : <BoxContent><BoxTopic>Você não recebeu nenhuma avaliação ainda.</BoxTopic></BoxContent>}
                 </Box>
                 <Box>
                     <BoxTitle>Serviços</BoxTitle>
                     <BoxContent>
-                        <h4>Ofertas</h4>
-                        {user.services.map( service => {
-                            return <BoxTopic>{service.title}</BoxTopic>
-                        })}
-                    </BoxContent>
-                    <BoxContent>
-                        <h4>Beneficiado</h4>
-                        {user.needing.map( need => {
-                            return <BoxTopic>{need.title}</BoxTopic>
-                        })}
+                        <h4>Pedidos de ajuda</h4>
+                        {user.servicosOferecidos.length > 0 ? user.servicosOferecidos.map( service => {
+                            return <>
+                                <BoxTopic>{service.__id}</BoxTopic>
+                                <BoxTopic>{service.tipoAtendimento}</BoxTopic>
+                                <BoxTopic>{service.aceitaPermuta}</BoxTopic>
+                            </>
+                        }) : <p>Você não tem serviços oferecidos.</p>}
                     </BoxContent>
                 </Box>
                 <Box>
                     <BoxTitle>Blocks</BoxTitle>
-                    {user.blocks.map( person => {
+                    {user.usuariosBloqueados.length > 0 ?user.usuariosBloqueados.map( person => {
                         return <BoxContent>
                             <BoxTopic>{person.name}</BoxTopic>
                         </BoxContent>
-                    })}
+                    }) : <BoxContent><BoxTopic>Você não tem usuário bloqueados.</BoxTopic></BoxContent>}
                 </Box>
             </Container>}
+            <SecondaryMenu />
             <Footer/>
         </MainContainer>
     )

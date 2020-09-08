@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../components/UserContext';
 
@@ -34,30 +35,21 @@ const LoginPage = () => {
         console.log(user)
     }
 
-    const mockUser = {
-        name: "Ana",
-        lastName: "Santana",
-        email: "annasantana@gmail.com",
-        user: "anasantana",
-        password: "123456",
-        dateOfBirth: "04/02/1985",
-        bio: "Oi, eu sou a Ana! Tenho dois filhos e sinto dificuldades em dar conta de tudo. Preciso de ajuda!",
-        photo: profilePic,
-        phone: "01199999-9999",
-        children: true,
-        addressType: "residencial",
-        state: "sp",
-        city: "São Paulo",
-        postalCode: "04100-000",
-        addess: "rua das Margaridas",
-        number: "11/201"
-    }
 
-    const goToFeedPage = e => {
+    const goToFeedPage = async(e) => {
         e.preventDefault();
-        setUser(mockUser);
-        localStorage.setItem("userLocal", JSON.stringify(mockUser));
-        history.push(`/feed`)
+        
+        try {
+            const response = await axios.get("https://maryhelp.herokuapp.com/usuario/5f56e37784a7b7001770e480");
+
+            localStorage.setItem("user", JSON.stringify(response.data.result[0].cadastro._id))
+            setUser(response.data.result[0])
+            history.push(`/help`)
+        }
+        catch(err) {
+            console.log(err.message)
+        }
+
     }
 
     return (

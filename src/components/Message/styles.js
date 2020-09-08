@@ -33,7 +33,11 @@ export const InputText = styled.input `
     margin: 0;
 `
 
-export const UserName = styled.p `
+export const MessageText = styled.p `
+    padding: 8px 0;
+`
+
+export const UserName = styled.span `
 `
 
 export const AddBtn = styled.button `
@@ -41,6 +45,7 @@ export const AddBtn = styled.button `
 
 
 export const AddMessageContainer = styled.form `
+    margin: 24px auto;
 `
 
 export const Icon = styled.img `

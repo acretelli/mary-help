@@ -4,12 +4,9 @@ import { useHistory } from 'react-router-dom';
 
 import profilePic from '../../images/profile_pic.png';
 import menuIcon from '../../images/menu.svg';
-import notificationIcon from '../../images/notification.svg';
-import messageIcon from '../../images/messages.svg';
 import logoSimp from '../../images/logo_simp.png';
 import logo from '../../images/logo.svg';
 import closeBtn from '../../images/close.svg';
-import addIcon from '../../images/add.svg';
 
 import { HeaderContainer, HeaderWrapper, MainNavigation, MainNavigationLink, UserNameContainer, UserImg, MenuIcon, UserName, LogoImg, HeaderButton, CloseIcon } from './styles';
 
@@ -49,16 +46,6 @@ export const Header = () => {
         history.push(`/blog`)
         setOpenMenu(false)
     }
-    
-    const goToServices = () => {
-        history.push(`/feed/services`)
-        setOpenMenu(false)
-    }
-    
-    const goToRequests = () => {
-        history.push(`/feed/requests`)
-        setOpenMenu(false)
-    }
 
     const goToMessages = () => {
         history.push(`/messages`)
@@ -76,12 +63,7 @@ export const Header = () => {
     }
     
     const goToFeed = () => {
-        history.push(`/feed`)
-        setOpenMenu(false)
-    }
-    
-    const goToSolicitations = () => {
-        history.push(`/solicitations`)
+        history.push(`/help`)
         setOpenMenu(false)
     }
     
@@ -107,29 +89,22 @@ export const Header = () => {
             { user ? <HeaderWrapper>
                 <UserNameContainer>
                     <UserImg src={profilePic} alt="Foto da usuária" onClick={goToProfile}/>
-                    <UserName onClick={goToProfile}>Ana Santana</UserName>
+                    <UserName onClick={goToProfile}>Samantha Jonas</UserName>
                 </UserNameContainer>
                 <div>
-                    <MenuIcon src={addIcon} alt="Ícone para indicar o a abertura do menu" onClick={goToPost} />
-                    <MenuIcon src={messageIcon} alt="Ícone para indicar o a abertura do menu" onClick={goToMessages} />
-                    <MenuIcon src={notificationIcon} alt="Ícone para indicar o a abertura do menu" onClick={goToNotifications} />
                     <MenuIcon src={menuIcon} alt="Ícone para indicar o a abertura do menu" onClick={handleOpenMenu} />
                 </div>
 
                 {openMenu && <MainNavigation>
                     <CloseIcon src={closeBtn} alt="Botão de fechar o menu" onClick={handleOpenMenu} />
 
-                    <MainNavigationLink onClick={goToFeed}>Feed</MainNavigationLink>
+                    <MainNavigationLink onClick={goToFeed}>Ajudar</MainNavigationLink>
 
-                    <MainNavigationLink onClick={goToServices}>Serviços</MainNavigationLink>
-
-                    <MainNavigationLink onClick={goToRequests}>Pedidos</MainNavigationLink>
-
-                    <MainNavigationLink onClick={goToPost}>Publicar anúncio</MainNavigationLink>
+                    <MainNavigationLink onClick={goToPost}>Pedir ajuda</MainNavigationLink>
 
                     <MainNavigationLink onClick={goToProfile}>Meu Perfil</MainNavigationLink>
 
-                    <MainNavigationLink onClick={goToSolicitations}>Solicitações</MainNavigationLink>
+                    <MainNavigationLink onClick={goToNotifications}>Notificações</MainNavigationLink>
 
                     <MainNavigationLink onClick={goToMessages}>Mensagens</MainNavigationLink>
 

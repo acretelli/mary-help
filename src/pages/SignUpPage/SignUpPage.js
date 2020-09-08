@@ -28,7 +28,7 @@ const SignUpPage = () => {
     }
     
     const goToFeedPage = () => {
-        history.push(`/feed`)
+        history.push(`/help`)
     }
 
     return (

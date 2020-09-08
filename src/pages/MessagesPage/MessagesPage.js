@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Header } from '../../components/Header/Header';
 import { Footer } from '../../components/Footer/Footer';
+import { SecondaryMenu } from '../../components/SecondaryMenu/SecondaryMenu';
 import { Message } from '../../components/Message/Message';
 
 import profilePic from '../../images/profile_pic.png';
@@ -63,6 +64,7 @@ const MessagesPage = () => {
                     <Message authorId={authorClicked} />
                 </MessagesContainer>
             </Container>
+            <SecondaryMenu />
             <Footer />
         </MainContainer>
     )
