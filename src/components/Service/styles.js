@@ -31,13 +31,14 @@ export const UserName = styled.h4 `
 
 export const ServiceContent = styled.div `
     width: 100%;
-    padding: 16px 16px 0 16px;
+    padding: 24px;
     position: relative;
 `
 
 export const ServiceTitle = styled.h3 `
-    max-width: 80%;
+    max-width: 100%;
     margin: 8px 0 16px 0;
+    text-align: center;
 `
 
 export const ServicePrice = styled.p `
@@ -48,4 +49,19 @@ export const ServicePrice = styled.p `
     text-align: right;
     font-weight: 700;
     color: #828282;
+`
+
+export const IconBtns = styled.div `
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+`
+
+export const IconBtn = styled.img `
+    text-align: center;
+    margin: 8px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
 `

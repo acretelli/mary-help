@@ -7,6 +7,9 @@ import { MainContainer, FlexContainer, MainButton, Container } from '../../style
 
 import { BlogContainer, BlogPostsContainer, BlogPost, BlogTitle, BlogImg, BlogParagraph, BlogTextContent, Sidebar, PostContainer, PostImg, PostTitle, PostParagraph } from './styles';
 
+import adExampleSmall from '../../images/exemplo-publicidade-pequena.jpg';
+import adExampleLarge from '../../images/exemplo-publicidade-grande.jpg';
+
 const BlogPage = () => {
     const [ postId, setPostId] = useState('1234');
 
@@ -18,6 +21,7 @@ const BlogPage = () => {
         <MainContainer>
             <Header />
             <Container width="1024px">
+                <a herf="https://www.sebrae.com.br/sites/PortalSebrae" target="_blank"><img src={adExampleLarge} alt="Imagem de publicidade do Sebrae" /></a>
                 <h1>Blog</h1>
                 <BlogContainer>
                 {posts.map( post => {
@@ -32,6 +36,7 @@ const BlogPage = () => {
                     }
                 })}
                 <Sidebar>
+                    <a herf="https://www.sebrae.com.br/sites/PortalSebrae" target="_blank"><img src={adExampleSmall} alt="Imagem de publicidade do Sebrae" /></a>
                     <BlogPostsContainer>
                         <BlogPost>
                             <BlogImg src="https://images.unsplash.com/photo-1573496267478-37727ee5b694?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="" />

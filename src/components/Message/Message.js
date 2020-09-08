@@ -6,11 +6,10 @@ import { useForm } from '../../hooks/useForm';
 import deleteIcon from '../../images/delete.svg';
 
 import { MainContainer, Container } from '../../styles/mainStyles';
-import { MessagesListContainer, AddMessageContainer, MessagesContainer, MessageContainer, DeleteBtn, InputName, InputText, UserName, AddBtn, Icon } from './styles';
+import { MessagesListContainer, AddMessageContainer, MessagesContainer, MessageContainer, DeleteBtn, InputName, InputText, UserName, AddBtn, Icon, MessageText } from './styles';
 
 export const Message = (props) => {
   const [ messages, setMessages ] = useState([]);
-  const [ author, setAuthor ] = useState();
   const [errorMessage, setErrorMessage] = useState(false);
   const { form, onChange, resetForm } = useForm({
     text: "",
@@ -21,40 +20,26 @@ export const Message = (props) => {
           {
               id: "1234",
               author: "Joana",
-              messages: [
-                  {
-                    text: "Oi, Ana!",
-                },
-                  {
-                    text: "Tudo bem?",
-                }
-              ]
+              text:  "Oi, Ana!"
+          },
+          {
+              id: "1234",
+              author: "Joana",
+              text:  "Tudo bem?"
           },
           {
               id: "1235",
-              author: "Maria",
-              messages: [
-                {
-                  text: "Muito obrigada, Ana!",
-              },
-                {
-                  text:  "Você me ajudou muito!",
-              }
-              ]
+              author: "Kellen",
+              text: "Muito obrigada, Ana!",
+          },
+          {
+              id: "1235",
+              author: "Kellen",
+              text: "Você me ajudou muito!",
           },
     ]
 
-    const messagesByAuthor = userMessages.filter( author => {
-        if(author.id === props.authorId) {
-            return author
-        }
-    })
-
-
-    if(messagesByAuthor[0]) {
-        setMessages(messagesByAuthor[0].messages)
-        setAuthor(messagesByAuthor[0].author)
-    }
+    setMessages(userMessages)
 
   }, [props.authorId])
 
@@ -67,7 +52,8 @@ export const Message = (props) => {
   const addMessage = e => {
     e.preventDefault();
     const newMessage = {
-      user: "Ana Santana",
+      id: "1233",
+      author: "Ana",
       text: form.text
     };
     const newMessages = [...messages, newMessage];    
@@ -86,31 +72,23 @@ export const Message = (props) => {
       return false;
     }
   }
-    
-  const onKeyPressed = event => {
-    if (event.keyCode === 13 && form.text !== "") {
-      addMessage();
-    }
-  }
 
 
   const messagesList = messages.map( message => {
+    if(message.id === props.authorId || message.id === "1233") {
       return (
-          <MessagesContainer color={author} align={author}>
+          <MessagesContainer color={message.author} align={message.author}>
             <MessageContainer onDoubleClick={removeMessage}>
-                {/* <DeleteBtn onClick={() => { removeMessage(message.text); }}>
-                  <Icon src={deleteIcon} />
-                </DeleteBtn> */}
-                <p><UserName display={author} >{author}: </UserName>{message.text}</p>
+                <MessageText><UserName display={message.author} >{message.author}: </UserName>{message.text}</MessageText>
             </MessageContainer>
           </MessagesContainer>
       )
+    }
   });
-  
 
   return (
       <Container width="400px">
-        {author ? <MessagesListContainer>
+        {messagesList[0] ? <MessagesListContainer>
                 {messagesList}
             <AddMessageContainer onSubmit={addMessage}>
             <InputText
@@ -118,7 +96,6 @@ export const Message = (props) => {
                 value={form.text}
                 placeholder="Mensagem"
                 onChange={handleInputChange}
-                onKeyDown={onKeyPressed}
             />
             <AddBtn>Enviar</AddBtn>
             </AddMessageContainer> 

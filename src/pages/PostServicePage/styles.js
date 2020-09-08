@@ -11,7 +11,7 @@ export const NewPostInput = styled.input `
 export const NewPostTextArea = styled.textarea `
   width: calc(100% - 32px);
   min-height: 80px;
-  margin: 8px 0;
+  margin: 40px 0 8px 0;
   padding: 8px;
   border: none;
   border-radius: 8px;

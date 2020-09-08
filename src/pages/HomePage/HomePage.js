@@ -9,7 +9,7 @@ import logo from '../../images/MaryHelp.png';
 import logoSebrae from '../../images/sebrae-logo.svg';
 import logoShawee from '../../images/shawee.jpg';
 
-import integranteCarine from '../../images/sebrae-logo.svg';
+import integranteCarine from '../../images/carine.jpg';
 import integranteDaniele from '../../images/ewadlyn.jpg';
 import integranteAnna from '../../images/anna.JPG';
 import integranteFernandaF from '../../images/fernanda-fernandes.jpg';
@@ -38,6 +38,10 @@ const HomePage = () => {
 
     const goToSignUp= () => {
         history.push('/signup')
+    }
+
+    const goToBlog= () => {
+        history.push('/blog')
     }
 
     return (
@@ -83,7 +87,7 @@ const HomePage = () => {
                             <BlogTextContent>
                                 <BlogTitle>Como fazer de uma necessidade um negócio</BlogTitle>
                                 <BlogParagraph>Fat baby cat best buddy little guy weigh eight pounds but take up a full-size bed carefully drink from water glass and then spill it everywhere.</BlogParagraph>
-                                <MainButton backgroundColor="#8130a2">Continuar lendo</MainButton>
+                                <MainButton backgroundColor="#8130a2" onClick={goToBlog}>Continuar lendo</MainButton>
                             </BlogTextContent>
                         </BlogPost>
                         <BlogPost>
@@ -91,7 +95,7 @@ const HomePage = () => {
                             <BlogTextContent>
                                 <BlogTitle>Quando mulheres se ajudam</BlogTitle>
                                 <BlogParagraph>Fat baby cat best buddy little guy weigh eight pounds but take up a full-size bed carefully drink from water glass and then spill it everywhere.</BlogParagraph>
-                                <MainButton backgroundColor="#8130a2">Continuar lendo</MainButton>
+                                <MainButton backgroundColor="#8130a2" onClick={goToBlog}>Continuar lendo</MainButton>
                             </BlogTextContent>
                         </BlogPost>
                         <BlogPost>
@@ -99,7 +103,7 @@ const HomePage = () => {
                             <BlogTextContent>
                                 <BlogTitle>Construindo uma rede solidária de mulheres</BlogTitle>
                                 <BlogParagraph>Fat baby cat best buddy little guy weigh eight pounds but take up a full-size bed carefully drink from water glass and then spill it everywhere.</BlogParagraph>
-                                <MainButton backgroundColor="#8130a2">Continuar lendo</MainButton>
+                                <MainButton backgroundColor="#8130a2" onClick={goToBlog}>Continuar lendo</MainButton>
                             </BlogTextContent>
                         </BlogPost>
                     </BlogPostsContainer>
@@ -109,7 +113,7 @@ const HomePage = () => {
                 <SectionTitle color="#8130a2">Idealizadoras</SectionTitle>
                 <CreditsContainer>
                     <Credits>
-                        <CreditPhoto src="https://images.unsplash.com/photo-1573496005828-adb22e525798?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Foto de Carine" />
+                        <CreditPhoto src={integranteCarine} alt="Foto de Carine" />
                         <div>
                             <TextLarge>Carine Zanotto Vieira</TextLarge>
                             <p>Business</p>

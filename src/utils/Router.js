@@ -4,7 +4,6 @@ import ScrollTop from './ScrollTop';
 import HomePage from '../pages/HomePage/HomePage';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
-import FeedPage from '../pages/FeedPage/FeedPage';
 import MessagesPage from '../pages/MessagesPage/MessagesPage';
 import BlogPage from '../pages/BlogPage/BlogPage';
 import HowToUsePage from '../pages/HowToUsePage/HowToUsePage';
@@ -12,7 +11,6 @@ import UsePolicyPage from '../pages/UsePolicyPage/UsePolicyPage';
 import SignUpPage from '../pages/SignUpPage/SignUpPage';
 import ServicesListPage from '../pages/ServicesListPage/ServicesListPage';
 import PostServicePage from '../pages/PostServicePage/PostServicePage';
-import SolicitationsPage from '../pages/SolicitationsPage/SolicitationsPage';
 import NotificationsPage from '../pages/NotificationsPage/NotificationsPage';
 
 const Router = () => {
@@ -33,17 +31,11 @@ const Router = () => {
           <Route exact path="/profile">
               <ProfilePage />
           </Route>
-          <Route exact path="/feed">
-              <FeedPage />
-          </Route>
-          <Route exact path="/feed/:id">
+          <Route exact path="/help">
               <ServicesListPage />
           </Route>
           <Route exact path="/post">
               <PostServicePage />
-          </Route>
-          <Route exact path="/solicitations">
-              <SolicitationsPage />
           </Route>
           <Route exact path="/notifications">
               <NotificationsPage />

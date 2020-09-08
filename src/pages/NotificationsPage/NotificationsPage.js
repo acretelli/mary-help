@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Header } from '../../components/Header/Header';
 import { Footer } from '../../components/Footer/Footer';
+import { SecondaryMenu } from '../../components/SecondaryMenu/SecondaryMenu';
 
 import profilePic from '../../images/profile_pic.png';
 
@@ -10,9 +11,21 @@ import { UserImg } from './styles';
 
 const notifications = [
     {
-        "message": "Ana Santana te mandou uma mensagem",
+        "message": "Gabriela aceitou a sua ajuda!",
         "type": "message"
-    }
+    },
+    {
+        "message": "Joana quer te ajudar!",
+        "type": "message"
+    },
+    {
+        "message": "Carla quer te ajudar!",
+        "type": "message"
+    },
+    {
+        "message": "Kellen aceitou a sua ajuda!",
+        "type": "message"
+    },
 ]
 
 const NotificationsPage = () => {
@@ -57,14 +70,15 @@ const NotificationsPage = () => {
         <MainContainer>
             <Header />
             <Container width="600px">
-                <h1>Todas as notificações</h1>
+                <h1>Notificações</h1>
                 {notifications.map( notification => {
                     return <FlexContainer key={notification.message}>
                         <p>{notification.message}</p>
-                        <button onClick={()=>notificationLink(notification.type)}>ver</button>
+                        <button onClick={()=>notificationLink(notification.type)}>mandar mensagem</button>
                     </FlexContainer>
                 })}
             </Container>
+            <SecondaryMenu />
             <Footer />
         </MainContainer>
     )
