@@ -27,7 +27,6 @@ export const Services = (props) => {
         try {
             const response = await axios.get("https://maryhelp.herokuapp.com/solicitacao")
             setServices(response.data.result)
-            console.log(response.data.result)
         }
         catch(err) {
             console.log(err)
